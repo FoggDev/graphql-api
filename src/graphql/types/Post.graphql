@@ -25,6 +25,9 @@ input CreatePostInput {
   title: String!,
   slug: String!,
   content: String!,
+  readingTime: String!,
+  language: String!,
+  published: Boolean!,
   userId: UUID!,
   tags: [TagsInput]
 }
