@@ -14,11 +14,19 @@ type Post {
 }
 
 type Query {
-  getPosts: [Post!]
+  getPosts(options: OptionsInput): [Post!],
+  getPostsCount: CountPayload!
 }
 
 type Mutation {
   createPost(input: CreatePostInput): Post!
+}
+
+input OptionsInput {
+  orderBy: String,
+  direction: String,
+  limit: Int,
+  offset: Int
 }
 
 input CreatePostInput {
@@ -30,4 +38,8 @@ input CreatePostInput {
   published: Boolean!,
   userId: UUID!,
   tags: [TagsInput]
+}
+
+type CountPayload {
+  count: Int!
 }
