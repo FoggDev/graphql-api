@@ -17,7 +17,8 @@ exports[`#typeDefs should match the GraphQL schema 1`] = `
 }
 
 type Query {
-  getPosts: [Post!]
+  getPosts(options: GetPostsOptionsInput): [Post!]
+  getPostById(id: String!): Post!
   getUsers: [User!]
 }
 
@@ -25,6 +26,13 @@ type Mutation {
   createPost(input: CreatePostInput): Post!
   createUser(input: CreateUserInput): User!
   login(input: LoginInput): AuthPayload!
+}
+
+input GetPostsOptionsInput {
+  orderBy: String
+  direction: String
+  limit: Int
+  offset: Int
 }
 
 input CreatePostInput {

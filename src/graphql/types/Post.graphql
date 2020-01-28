@@ -14,11 +14,19 @@ type Post {
 }
 
 type Query {
-  getPosts: [Post!]
+  getPosts(options: GetPostsOptionsInput): [Post!]
+  getPostById(id: String!): Post!
 }
 
 type Mutation {
   createPost(input: CreatePostInput): Post!
+}
+
+input GetPostsOptionsInput {
+  orderBy: String,
+  direction: String,
+  limit: Int,
+  offset: Int
 }
 
 input CreatePostInput {
