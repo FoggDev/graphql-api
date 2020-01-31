@@ -19,6 +19,7 @@ exports[`#typeDefs should match the GraphQL schema 1`] = `
 type Query {
   getPosts(options: OptionsInput): [Post!]
   getPostsCount: CountPayload!
+  getPostById(id: UUID!): Post!
   getUsers: [User!]
 }
 

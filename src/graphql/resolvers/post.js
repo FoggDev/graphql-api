@@ -30,6 +30,9 @@ export default {
       }
 
       return models.Post.findAll(args)
+    },
+    getPostById: (_, { id }, { models }) => {
+      return models.Post.findByPk(id)
     }
   },
   Mutation: {

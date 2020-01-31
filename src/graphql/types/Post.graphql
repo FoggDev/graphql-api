@@ -14,8 +14,9 @@ type Post {
 }
 
 type Query {
-  getPosts(options: OptionsInput): [Post!],
+  getPosts(options: OptionsInput): [Post!]
   getPostsCount: CountPayload!
+  getPostById(id: UUID!): Post!
 }
 
 type Mutation {
