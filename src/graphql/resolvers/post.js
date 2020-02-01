@@ -32,7 +32,12 @@ export default {
       return models.Post.findAll(args)
     },
     getPostById: (_, { id }, { models }) => {
-      return models.Post.findByPk(id)
+      return models.Post.findByPk(id, {
+        include: [{
+          model: models.Tag,
+          as: 'tags'
+        }]
+      })
     }
   },
   Mutation: {
