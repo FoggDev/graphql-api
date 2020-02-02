@@ -30,6 +30,14 @@ export default {
       }
 
       return models.Post.findAll(args)
+    },
+    getPostById: (_, { id }, { models }) => {
+      return models.Post.findByPk(id, {
+        include: [{
+          model: models.Tag,
+          as: 'tags'
+        }]
+      })
     }
   },
   Mutation: {
@@ -40,6 +48,57 @@ export default {
           as: 'tags'
         }]
       })
+    },
+    updatePost: async (_, { id, input }, { models }) => {
+      const {
+        title,
+        slug,
+        content,
+        readingTime,
+        language,
+        published,
+        tags
+      } = input
+
+      // Finding post
+      const post = await models.Post.findOne({ where: { id } })
+      let newTags = []
+
+      // If the post does not exists we throw an error
+      if (!post) {
+        throw Error(`Post not updated (id: ${id})`)
+      }
+
+      // Updating the post with new data
+      post.title = title
+      post.slug = slug
+      post.content = content
+      post.readingTime = readingTime
+      post.language = language
+      post.published = published
+      post.tags = tags
+
+      // Removing all existing tags for this post
+      await models.Tag.destroy({
+        where: {
+          postId: id
+        }
+      })
+
+      // If we have new tags then we re-inserted them
+      if (tags.length > 0) {
+        newTags = tags.map(({ name }) => ({
+          name,
+          postId: id
+        }))
+
+        await models.Tag.bulkCreate(newTags)
+      }
+
+      // Saving the post
+      await post.save()
+
+      return post
     }
   }
 }
