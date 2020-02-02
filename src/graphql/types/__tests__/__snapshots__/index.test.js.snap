@@ -25,6 +25,7 @@ type Query {
 
 type Mutation {
   createPost(input: CreatePostInput): Post!
+  updatePost(id: UUID!, input: UpdatePostInput): Post!
   createUser(input: CreateUserInput): User!
   login(input: LoginInput): AuthPayload!
 }
@@ -44,6 +45,16 @@ input CreatePostInput {
   language: String!
   published: Boolean!
   userId: UUID!
+  tags: [TagsInput]
+}
+
+input UpdatePostInput {
+  title: String!
+  slug: String!
+  content: String!
+  readingTime: String!
+  language: String!
+  published: Boolean!
   tags: [TagsInput]
 }
 

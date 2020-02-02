@@ -21,6 +21,7 @@ type Query {
 
 type Mutation {
   createPost(input: CreatePostInput): Post!
+  updatePost(id: UUID!, input: UpdatePostInput): Post!
 }
 
 input OptionsInput {
@@ -38,6 +39,16 @@ input CreatePostInput {
   language: String!,
   published: Boolean!,
   userId: UUID!,
+  tags: [TagsInput]
+}
+
+input UpdatePostInput {
+  title: String!,
+  slug: String!,
+  content: String!,
+  readingTime: String!,
+  language: String!,
+  published: Boolean!,
   tags: [TagsInput]
 }
 
